@@ -3,7 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from labjack import ljm
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Float32MultiArray, MultiArrayDimension
 
 class LabJack( Node ):
 
@@ -41,6 +41,20 @@ class LabJack( Node ):
         # pub msg
         analog_msg = Float32MultiArray()
         analog_msg.data = data
+        analog_msg.layout.data_offset = 0 
+
+        # create two dimensions in the dim array
+        analog_msg.layout.dim = [MultiArrayDimension(), MultiArrayDimension()]
+
+        # dim[0] is AIN0
+        analog_msg.layout.dim[0].label = "AIN0"
+        analog_msg.layout.dim[0].size = 1
+        analog_msg.layout.dim[0].stride = 1
+        # dim[1] is AIN1
+        analog_msg.layout.dim[1].label = "AIN1"
+        analog_msg.layout.dim[1].size = 1
+        analog_msg.layout.dim[1].stride = 1
+
         self.analog_pub.publish(analog_msg)
 
 
