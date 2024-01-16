@@ -39,6 +39,7 @@ class LabJack( Node ):
         data = ljm.eReadNames(self.lj_handle, 2, ["AIN0", "AIN1"])
         # self.get_logger().info("AIN0 : %f V, AIN1 : %f V" % (data[0], data[1]))
 
+        # pub msg
         analog_msg = AnalogIn()
         analog_msg.voltage = data
         self.analog_pub.publish(analog_msg)
