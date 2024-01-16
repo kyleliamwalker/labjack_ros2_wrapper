@@ -3,8 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from labjack import ljm
-from std_msgs.msg import Float64
-from custom_interfaces.msg import AnalogIn
+from std_msgs.msg import Float32MultiArray
 
 class LabJack( Node ):
 
@@ -32,7 +31,7 @@ class LabJack( Node ):
         # init timer to publish encoder position
         timer_period = 0.01 # seconds
         self.timer = self.create_timer(timer_period, self.labjack_callback)
-        self.analog_pub = self.create_publisher(AnalogIn, '/labjack', 10)
+        self.analog_pub = self.create_publisher(Float32MultiArray, '/labjack', 10)
 
     def labjack_callback(self):
 
@@ -40,8 +39,8 @@ class LabJack( Node ):
         # self.get_logger().info("AIN0 : %f V, AIN1 : %f V" % (data[0], data[1]))
 
         # pub msg
-        analog_msg = AnalogIn()
-        analog_msg.voltage = data
+        analog_msg = Float32MultiArray()
+        analog_msg.data = data
         self.analog_pub.publish(analog_msg)
 
 

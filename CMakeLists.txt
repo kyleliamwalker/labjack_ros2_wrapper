@@ -11,7 +11,7 @@ find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 
-ament_export_dependencies(custom_interfaces)
+# ament_export_dependencies(custom_interfaces)
 
 install(TARGETS
 	#	cpp_executable
