@@ -51,7 +51,7 @@ class LabJack( Node ):
         encoder_msg.layout.dim[1].size = 1
         encoder_msg.layout.dim[1].stride = 1
 
-        self.digital_pub.publish(encoder_msg)
+        self.encoder_pub.publish(encoder_msg)
 
 
 def main():
