@@ -22,7 +22,8 @@ ament_python_install_package(${PROJECT_NAME})
 
 #Install Python executables
 install(PROGRAMS
-  src/labjack_node.py
+  src/read_analog_node.py
+  src/read_digital_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

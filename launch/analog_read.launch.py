@@ -8,8 +8,8 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='labjack_ros2_wrapper',
-            executable='labjack_node.py',
-            name='labjack',
+            executable='read_analog_node.py',
+            name='analog_read',
             output="screen",
         ),
         # Node(
