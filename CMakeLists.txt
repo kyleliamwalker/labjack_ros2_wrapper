@@ -24,6 +24,7 @@ ament_python_install_package(${PROJECT_NAME})
 install(PROGRAMS
   src/read_analog_node.py
   src/read_digital_node.py
+  src/read_quad_encoder.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
