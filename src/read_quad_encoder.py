@@ -43,11 +43,11 @@ class LabJack( Node ):
         encoder_msg.layout.dim = [MultiArrayDimension(), MultiArrayDimension()]
 
         # dim[0] is AIN0
-        encoder_msg.layout.dim[0].label = "FIO0"
+        encoder_msg.layout.dim[0].label = "DIO0_AF"
         encoder_msg.layout.dim[0].size = 1
         encoder_msg.layout.dim[0].stride = 1
         # dim[1] is AIN1
-        encoder_msg.layout.dim[1].label = "FIO1"
+        encoder_msg.layout.dim[1].label = "DIO0_A"
         encoder_msg.layout.dim[1].size = 1
         encoder_msg.layout.dim[1].stride = 1
 
