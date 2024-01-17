@@ -21,7 +21,7 @@ class LabJack( Node ):
         # init timer to publish encoder position
         timer_period = 0.01 # seconds
         self.timer = self.create_timer(timer_period, self.labjack_callback)
-        self.analog_pub = self.create_publisher(Float32MultiArray, '/labjack', 10)
+        self.digital_pub = self.create_publisher(Float32MultiArray, '/labjack_digital', 10)
 
     def labjack_callback(self):
 
@@ -29,23 +29,23 @@ class LabJack( Node ):
         # self.get_logger().info("AIN0 : %f V, AIN1 : %f V" % (data[0], data[1]))
 
         # pub msg
-        analog_msg = Float32MultiArray()
-        analog_msg.data = data
-        analog_msg.layout.data_offset = 0 
+        digital_msg = Float32MultiArray()
+        digital_msg.data = data
+        digital_msg.layout.data_offset = 0 
 
         # create two dimensions in the dim array
-        analog_msg.layout.dim = [MultiArrayDimension(), MultiArrayDimension()]
+        digital_msg.layout.dim = [MultiArrayDimension(), MultiArrayDimension()]
 
         # dim[0] is AIN0
-        analog_msg.layout.dim[0].label = "FIO0"
-        analog_msg.layout.dim[0].size = 1
-        analog_msg.layout.dim[0].stride = 1
+        digital_msg.layout.dim[0].label = "FIO0"
+        digital_msg.layout.dim[0].size = 1
+        digital_msg.layout.dim[0].stride = 1
         # dim[1] is AIN1
-        analog_msg.layout.dim[1].label = "FIO1"
-        analog_msg.layout.dim[1].size = 1
-        analog_msg.layout.dim[1].stride = 1
+        digital_msg.layout.dim[1].label = "FIO1"
+        digital_msg.layout.dim[1].size = 1
+        digital_msg.layout.dim[1].stride = 1
 
-        self.analog_pub.publish(analog_msg)
+        self.analog_pub.publish(digital_msg)
 
 
 def main():
