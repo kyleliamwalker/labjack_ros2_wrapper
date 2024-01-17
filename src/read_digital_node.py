@@ -3,7 +3,7 @@
 import rclpy
 from rclpy.node import Node
 from labjack import ljm
-from std_msgs.msg import Int32MultiArray, MultiArrayDimension
+from std_msgs.msg import Float32MultiArray, MultiArrayDimension
 
 class LabJack( Node ):
 
@@ -21,7 +21,7 @@ class LabJack( Node ):
         # init timer to publish encoder position
         timer_period = 0.01 # seconds
         self.timer = self.create_timer(timer_period, self.labjack_callback)
-        self.digital_pub = self.create_publisher(Int32MultiArray, '/labjack_digital', 10)
+        self.digital_pub = self.create_publisher(Float32MultiArray, '/labjack_digital', 10)
 
     def labjack_callback(self):
 
@@ -29,7 +29,7 @@ class LabJack( Node ):
         # self.get_logger().info("AIN0 : %f V, AIN1 : %f V" % (data[0], data[1]))
 
         # pub msg
-        digital_msg = Int32MultiArray()
+        digital_msg = Float32MultiArray()
         digital_msg.data = data
         digital_msg.layout.data_offset = 0 
 
@@ -45,7 +45,7 @@ class LabJack( Node ):
         digital_msg.layout.dim[1].size = 1
         digital_msg.layout.dim[1].stride = 1
 
-        self.analog_pub.publish(digital_msg)
+        self.digital_pub.publish(digital_msg)
 
 
 def main():
