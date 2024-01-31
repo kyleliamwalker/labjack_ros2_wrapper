@@ -25,6 +25,7 @@ install(PROGRAMS
   src/read_analog_node.py
   src/read_digital_node.py
   src/read_quad_encoder.py
+  src/read_i2c_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
