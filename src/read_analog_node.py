@@ -5,11 +5,11 @@ from rclpy.node import Node
 from labjack import ljm
 from std_msgs.msg import Float32MultiArray, MultiArrayDimension
 
-class LabJack( Node ):
+class ReadAnalog( Node ):
 
     def __init__(self):
 
-        super().__init__('labjack')
+        super().__init__('read_analog')
         # Open first found LabJack
         self.lj_handle = ljm.openS("T7", "ANY", "ANY")
         self.info = ljm.getHandleInfo(self.lj_handle)
@@ -60,7 +60,7 @@ class LabJack( Node ):
 
 def main():
     rclpy.init()
-    labjack = LabJack()
+    labjack = ReadAnalog()
     try:
         rclpy.spin(labjack)
     except KeyboardInterrupt:
