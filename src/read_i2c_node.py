@@ -39,18 +39,34 @@ class ReadI2C( Node ):
         ljm.eWriteName(self.lj_handle, "I2C_NUM_BYTES_RX", self.numBytes)  # Set the number of bytes to receive
         ljm.eWriteName(self.lj_handle, "I2C_GO", 1)  # Do the I2C communications.
 
+        bno055_operational_mode = ljm.eReadName(self.lj_handle, "I2C_DATA_RX")
+        print("BNO055 Operational Mode:", bno055_operational_mode)
+
         self.create_timer(0.01, self.labjack_callback)
 
 
     def labjack_callback(self):
-        # Parse BNO055 orientation data
-        aBytes = [0]*self.numBytes
-        aBytes = ljm.eReadNameArray(self.lj_handle, "I2C_DATA_RX", self.numBytes)
-        time.sleep(0.05)
-        self.get_logger().info("Raw Data: %s" % aBytes)
-        # Read I2C_ACKS
-        i2c_acks = ljm.eReadNameArray(self.lj_handle, "I2C_ACKS", 1)
-        print("I2C ACK Status:", i2c_acks[0])
+        # # Parse BNO055 orientation data
+        # aBytes = [0]*self.numBytes
+        # aBytes = ljm.eReadNameArray(self.lj_handle, "I2C_DATA_RX", self.numBytes)
+        # time.sleep(0.05)
+        # self.get_logger().info("Raw Data: %s" % aBytes)
+        # # Read I2C_ACKS
+        # i2c_acks = ljm.eReadNameArray(self.lj_handle, "I2C_ACKS", 1)
+        # print("I2C ACK Status:", i2c_acks[0])
+        try:
+            # Read I2C_ACKS before reading data
+            i2c_acks = ljm.eReadNameArray(self.lj_handle, "I2C_ACKS", 1)
+            print("I2C ACK Status:", i2c_acks[0])
+
+            # Parse BNO055 orientation data
+            a_bytes = ljm.eReadNameArray(self.lj_handle, "I2C_DATA_RX", self.numBytes)
+            self.get_logger().info("Raw Data: %s" % a_bytes)
+
+            # Process the data as needed
+
+        except ljm.LJMError as e:
+            self.get_logger().error(f"LabJack error: {e}")
 
 def main():
     rclpy.init()
